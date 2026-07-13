@@ -1,84 +1,105 @@
 # voice-cloner
 
-Skill para Claude Code que clona a voz escrita de qualquer pessoa ou marca a partir de amostras reais, e devolve uma skill de voz reutilizável no formato `<nome>-voice/SKILL.md`.
+A Claude Code skill that clones the written voice of a person or brand from real samples and produces a reusable voice skill at `<name>-voice/SKILL.md`.
 
-O arquivo gerado funciona em três lugares sem adaptação, sendo eles skill do Claude Code, custom instruction do ChatGPT e system prompt de qualquer API.
+The generated file works without adaptation as a Claude Code skill, a ChatGPT custom instruction, or a system prompt for any API.
 
-Esta skill trabalha com voz escrita, ou seja, idioleto e tom de voz textual. Ela não faz clonagem de áudio.
+This project works with written voice—idiolect and textual tone of voice. It does not clone audio.
 
-## O problema que ela resolve
+## The problem it solves
 
-Pedir para uma IA "escrever como fulano" com duas amostras produz paródia ou texto genérico. O modelo preenche a lacuna com o default dele, que é aquele português simpático, vazio e cheio de "espero ter ajudado".
+Asking an AI to "write like someone" from two samples usually produces parody or generic copy. The model fills the gaps with its defaults: polished, agreeable text that says very little.
 
-O voice-cloner impõe um processo de três fases que não pode ser pulado. Primeiro coleta com amostras rotuladas e separação entre fala e escrita. Depois análise com evidência citada e perguntas de calibração. Por último geração, só após validação humana.
+voice-cloner enforces a three-phase process that cannot be skipped. It first collects labeled samples and separates speech from writing. It then analyzes the material with cited evidence and calibration questions. Only after human validation does it generate the final voice skill.
 
-## Instalação
+## Installation
 
-Skill pessoal, disponível em todos os projetos:
-
-```bash
-git clone https://github.com/SEU-USUARIO/voice-cloner.git ~/.claude/skills/voice-cloner
-```
-
-Skill de projeto, versionada junto com o repositório do time:
+Install it as a personal skill available across projects:
 
 ```bash
-git clone https://github.com/SEU-USUARIO/voice-cloner.git .claude/skills/voice-cloner
+git clone https://github.com/criminaly-vicious/voice-cloner.git ~/.claude/skills/voice-cloner
 ```
 
-Reinicie o Claude Code depois de instalar. A skill ativa sozinha quando você pede algo como "clona a voz do meu cliente", "extrai o tom de voz dessa marca" ou "cria um guia de estilo a partir desses textos".
-
-## Uso
-
-Basta pedir em linguagem natural e mandar o material:
-
-```
-Clona a voz da minha marca. Vou te mandar o site, três e-mails de campanha e o guia de tom que a agência entregou ano passado.
-```
-
-A skill vai pedir o que falta, entregar um relatório de voz com evidência citada, fazer as perguntas de calibração e só então gerar o `SKILL.md` final.
-
-Depois de gerar, valide a estrutura:
+Or install it as a project skill versioned with your team's repository:
 
 ```bash
-python3 scripts/validar_skill.py caminho/para/nome-voice/SKILL.md
+git clone https://github.com/criminaly-vicious/voice-cloner.git .claude/skills/voice-cloner
 ```
 
-O validador não julga se a voz ficou boa, porque isso só o dono da voz consegue julgar. Ele impede que o arquivo saia quebrado, sem seção obrigatória, com placeholder esquecido ou com antipadrão de IA vazado para dentro do documento.
+Restart Claude Code after installation. The skill activates when you make requests such as "clone my client's voice," "extract this brand's tone of voice," or "create a style guide from these texts."
 
-O teste que importa é o teste cego, descrito no `SKILL.md`, em que a pessoa dona da voz recebe um texto gerado e um texto real dela sem saber qual é qual. Se ela acerta de primeira, a skill não está pronta.
+## Usage
 
-## Sem Claude Code
+Ask in natural language and provide the source material:
 
-Copie o conteúdo de [prompt-standalone.md](prompt-standalone.md) e cole no Claude, ChatGPT ou Gemini. O processo em três fases roda inteiro dentro do chat.
-
-## Estrutura
-
+```text
+Clone my brand's voice. I will send you the website, three campaign emails,
+and the tone guide our agency delivered last year.
 ```
+
+The skill asks for missing material, produces a voice report supported by cited evidence, asks calibration questions, and only then generates the final `SKILL.md`.
+
+Validate the generated file with:
+
+```bash
+python3 scripts/validate_skill.py path/to/name-voice/SKILL.md
+```
+
+The validator does not judge whether the voice sounds right; only the voice owner can do that. It catches structural problems, missing required sections, leftover placeholders, and common AI writing patterns.
+
+The test that matters is the blind test described in `SKILL.md`: show the voice owner one generated text and one real text without identifying either. If they immediately identify the generated version, the skill is not ready.
+
+## Without Claude Code
+
+Copy the contents of [standalone-prompt.md](standalone-prompt.md) into Claude, ChatGPT, Gemini, or another AI assistant. The complete three-phase process runs inside the conversation.
+
+## Project structure
+
+```text
 voice-cloner/
-├── SKILL.md                          Instruções principais, as três fases
-├── prompt-standalone.md              Versão portátil para qualquer IA
-├── references/
-│   ├── protocolo-de-extracao.md      As seis dimensões de análise
-│   ├── marca-vs-pessoa.md            O que muda quando a voz é de uma marca
-│   └── antipadroes.md                Modos de falha e sinais típicos de texto de IA
-├── templates/
-│   ├── TEMPLATE-voice-skill.md       Esqueleto do documento gerado
-│   └── formulario-de-coleta.md       O que pedir antes de começar
-├── examples/
-│   └── trilha-voice.md               Exemplo completo, marca fictícia, passa no validador
-└── scripts/
-    └── validar_skill.py              Validador estrutural, sem dependências externas
+|-- SKILL.md                         Main instructions and three-phase workflow
+|-- standalone-prompt.md             Portable prompt for any AI assistant
+|-- references/
+|   |-- voice-extraction-protocol.md Six analysis dimensions
+|   |-- brand-vs-person.md           How brand voice analysis differs
+|   `-- anti-patterns.md             Failure modes and common AI patterns
+|-- templates/
+|   |-- TEMPLATE-voice-skill.md      Generated document skeleton
+|   `-- collection-form.md           Material to request before analysis
+|-- examples/
+|   `-- trail-voice.md               Complete fictional brand example
+`-- scripts/
+    `-- validate_skill.py            Dependency-free structural validator
 ```
 
-## Requisitos
+## Requirements
 
-Python 3.8 ou superior para rodar o validador. Nenhuma biblioteca externa é necessária.
+Python 3.8 or newer is required to run the validator. No external libraries are needed.
 
-## Consentimento
+## Contributing
 
-Voz é ativo de identidade. Use apenas com material que você tem direito de usar, seja porque a voz é sua, seja porque é de cliente ou empregadora sua. A skill recusa pedidos cujo objetivo seja falsa autoria ou se passar por terceiro.
+Contributions to the skill, templates, examples, references, and validator are welcome. All repository content, branch names, commit messages, and pull request descriptions must be written in English.
 
-## Licença
+This repository follows [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow):
 
-MIT. Veja [LICENSE](LICENSE).
+1. Update your local `main` and create a short-lived branch from it. Use a descriptive prefix such as `feat/`, `fix/`, `docs/`, `refactor/`, or `test/`.
+2. Make one focused change and update every affected example, template, reference, and validator rule.
+3. Validate the example skill before opening a pull request:
+
+   ```bash
+   python3 scripts/validate_skill.py examples/trail-voice.md
+   ```
+
+4. Commit using [Conventional Commits](https://www.conventionalcommits.org/), for example `feat: add interview voice samples`, `fix: detect unresolved placeholders`, or `docs: clarify the calibration workflow`.
+5. Push the branch and open a pull request against `main`. Explain the problem, the chosen approach, and how you tested it.
+6. Keep the branch current with `main`, address review feedback, and merge only after validation passes. Do not commit directly to `main`.
+
+When changing the generated voice-skill format, update `templates/TEMPLATE-voice-skill.md`, `standalone-prompt.md`, the validator, and the example in the same pull request so the contract stays consistent.
+
+## Consent
+
+Voice is an identity asset. Use only material you have the right to use, whether the voice is yours or belongs to a client or employer. The skill refuses requests intended for false attribution or impersonation.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

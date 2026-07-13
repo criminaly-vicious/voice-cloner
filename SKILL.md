@@ -1,83 +1,83 @@
 ---
 name: voice-cloner
-description: Extrai o idioleto de uma pessoa ou o tom de voz de uma marca a partir de amostras reais de texto, fala transcrita ou material de marca, e gera uma skill de voz reutilizável (SKILL.md) que faz qualquer IA escrever naquela voz. Use quando alguém pedir para clonar a voz, capturar o estilo de escrita, extrair tom de voz, criar uma brand voice, montar um guia de estilo a partir de exemplos, treinar a IA para escrever como fulano, ou transformar amostras de texto em prompt de estilo. Também use ao auditar ou corrigir uma skill de voz existente que está gerando texto genérico.
+description: Extracts a person's idiolect or a brand's tone of voice from real writing, transcribed speech, or brand material, then generates a reusable voice skill (SKILL.md) that enables any AI to write in that voice. Use when someone asks to clone a voice, capture a writing style, extract tone of voice, create a brand voice, build a style guide from examples, train an AI to write like a specific person, or turn writing samples into a style prompt. Also use when auditing or correcting an existing voice skill that produces generic text.
 ---
 
 # Voice Cloner
 
-Esta skill transforma amostras reais em uma skill de voz utilizável. O produto final é um arquivo `SKILL.md` no formato `<nome>-voice`, que funciona como skill do Claude Code, custom instruction do ChatGPT ou system prompt de qualquer API sem adaptação.
+This skill turns real samples into a usable voice skill. The final product is a `<name>-voice/SKILL.md` file that works without adaptation as a Claude Code skill, a ChatGPT custom instruction, or a system prompt for any API.
 
-O erro clássico nesse tipo de trabalho é a IA receber duas amostras, pular direto para a geração e inventar o resto. Esta skill existe para impedir isso. O processo tem três fases obrigatórias e nenhuma delas pode ser pulada.
+The classic failure in this work is giving an AI two samples, skipping directly to generation, and letting it invent the rest. This skill prevents that. Its three mandatory phases must be completed in order.
 
-## Antes de tudo: consentimento e escopo
+## Before anything else: consent and scope
 
-Voz é ativo de identidade. Antes de começar, confirme que a pessoa tem direito de usar aquele material, seja porque a voz é dela, seja porque é cliente ou empregadora dela. Se o pedido for imitar alguém sem relação com o solicitante para se passar por essa pessoa (fraude, falsa autoria, deepfake textual), recuse e explique o motivo em uma frase, sem sermão.
+Voice is an identity asset. Before starting, confirm that the requester has the right to use the material because the voice is theirs or belongs to their client or employer. If the request is to imitate an unrelated person for impersonation, fraud, or false attribution, refuse and explain why in one sentence without lecturing.
 
-Esta skill trabalha apenas com voz escrita, ou seja, idioleto e tom de voz textual. Ela não faz clonagem de áudio.
+This skill works only with written voice—idiolect and textual tone of voice. It does not clone audio.
 
-## Fase 1: Coleta
+## Phase 1: Collection
 
-Nunca analise antes de coletar o suficiente. Peça as amostras explicando por que cada tipo importa.
+Never analyze before collecting enough material. Request the samples and explain why each type matters.
 
-Para pessoa física, o mínimo viável é:
+For an individual, the minimum viable set is:
 
-- Cinco amostras de texto escrito com calma no teclado, como e-mails longos, posts, documentos ou mensagens extensas, cada uma rotulada com contexto (para quem era, com qual objetivo, qual o grau de formalidade).
-- Três amostras de fala, que podem ser transcrições de áudio, mensagens ditadas ou trechos de reunião, marcadas explicitamente como fala, porque fala e escrita são dois sistemas diferentes e vão ser tratados separadamente.
-- Aviso explícito sobre qualquer amostra que tenha sido editada por terceiros ou escrita com ajuda de IA, porque essas contaminam o sinal e devem entrar com peso menor ou ficar de fora.
+- Five samples of carefully written text, such as long emails, posts, documents, or substantial messages. Label each with its audience, purpose, and formality.
+- Three speech samples, such as audio transcripts, dictated messages, or meeting excerpts. Mark them explicitly as speech because speech and writing are separate systems and must be analyzed separately.
+- An explicit note identifying samples edited by someone else or written with AI assistance. These samples contaminate the signal and should carry less weight or be excluded.
 
-Para marca, o mínimo viável é:
+For a brand, the minimum viable set is:
 
-- Textos publicados em pelo menos três canais diferentes, como site, e-mail, redes sociais, documentação ou proposta comercial, porque marca costuma ter registros distintos por canal.
-- Qualquer guia de marca, manifesto, missão ou glossário interno já existente, mesmo que desatualizado, porque revela a intenção declarada e permite comparar com a prática real.
-- Exemplos do que a marca considera fora do tom, quando existirem, já que o contraexemplo é a evidência mais barata que existe.
+- Published text from at least three channels, such as the website, email, social media, documentation, or sales proposals. Brands often use different registers by channel.
+- Any existing brand guide, manifesto, mission statement, or internal glossary, even when outdated. These materials reveal declared intent and make it possible to compare intent with actual practice.
+- Examples the brand considers off-tone, when available. Counterexamples are some of the most efficient evidence you can collect.
 
-Se todas as amostras vierem do mesmo contexto, aponte a limitação e pergunte se há material de outros registros antes de seguir. Se a pessoa insistir em prosseguir com pouca amostra, prossiga, mas registre no documento final quais seções são hipótese e não evidência.
+If every sample comes from the same context, state the limitation and ask for other registers before continuing. If the requester chooses to proceed with too little material, continue but mark every hypothesis that is not supported by evidence in the final document.
 
-O formulário completo de coleta está em [templates/formulario-de-coleta.md](templates/formulario-de-coleta.md).
+The complete collection form is in [templates/collection-form.md](templates/collection-form.md).
 
-## Fase 2: Análise e relatório de voz
+## Phase 2: Analysis and voice report
 
-Analise as amostras nas dimensões descritas em [references/protocolo-de-extracao.md](references/protocolo-de-extracao.md), que cobre léxico, sintaxe, ritmo, pontuação, estrutura de argumento, marcadores pessoais, tom por contexto e diferenças entre fala e escrita.
+Analyze the samples using the dimensions in [references/voice-extraction-protocol.md](references/voice-extraction-protocol.md): vocabulary, syntax, rhythm, punctuation, argument structure, personal markers, tone by context, and differences between speech and writing.
 
-O passo mais importante da análise é isolar os invariantes, ou seja, os traços que aparecem em todos os registros e em todos os canais. Invariante é o núcleo da voz e tem prioridade máxima na skill final. Traço que aparece em uma amostra só é ruído até prova em contrário.
+The most important step is isolating invariants: traits that appear across registers and channels. Invariants form the core of the voice and receive the highest priority in the final skill. A trait found in only one sample is noise until supported by more evidence.
 
-Ao final da fase, entregue um relatório de voz com três partes:
+End the phase with a voice report containing three parts:
 
-- As descobertas, cada afirmação sustentada por um trecho real citado da amostra, porque afirmação sem evidência é invenção.
-- O que você não conseguiu determinar com confiança, dito abertamente em vez de preenchido com achismo.
-- De três a cinco perguntas de calibração no formato "você diria X ou Y nesta situação", usando pares de frases concretas construídas a partir das lacunas encontradas.
+- Findings, with every claim supported by a direct excerpt from the samples. A claim without evidence is an invention.
+- What could not be determined confidently, stated openly instead of filled with guesses.
+- Three to five calibration questions in the form "Would you say X or Y in this situation?" Use concrete pairs built from the gaps in the evidence.
 
-Só passe para a Fase 3 depois que a pessoa validar o relatório.
+Move to Phase 3 only after the requester validates the report.
 
-## Fase 3: Geração da skill de voz
+## Phase 3: Voice skill generation
 
-Gere o documento final seguindo [templates/TEMPLATE-voice-skill.md](templates/TEMPLATE-voice-skill.md), no idioma das amostras, nunca traduzido.
+Generate the final document using [templates/TEMPLATE-voice-skill.md](templates/TEMPLATE-voice-skill.md). Write it in the language of the samples; never translate the generated voice skill unless explicitly requested.
 
-As regras de qualidade do documento final são inegociáveis:
+The final document must follow these quality rules:
 
-- Os exemplos calibrados valem mais que as regras, porque IA aprende voz por imitação de exemplo, não por descrição abstrata. Cada par errado versus certo deve tratar do mesmo assunto, e o lado errado deve ser um texto de IA genérico plausível, não um espantalho ridículo.
-- Toda instrução deve ser operacional e positiva sempre que possível, como "abra com o contexto em uma frase", em vez de proibição vaga do tipo "não seja genérico".
-- Cada regra precisa ser específica o suficiente para que duas IAs diferentes seguindo a skill produzam textos parecidos. Se a regra admite dez interpretações, ela não é uma regra.
-- Nenhum traço pode entrar sem estar nas amostras ou ter sido confirmado nas perguntas de calibração. Na dúvida, deixe de fora, porque falso positivo em voz produz paródia.
+- Calibrated examples matter more than abstract rules because an AI learns voice more reliably from examples. Each incorrect/correct pair must address the same topic. The incorrect version must be plausible generic AI writing, not a ridiculous straw man.
+- Make every instruction operational and positive when possible, such as "open with the context in one sentence" instead of a vague prohibition such as "do not be generic."
+- Make each rule specific enough that two different AIs following it produce similar text. A statement that allows ten interpretations is not a rule.
+- Include no trait unless it appears in the samples or was confirmed through calibration. When uncertain, leave it out because false positives turn imitation into parody.
 
-Depois de gerar, rode a validação:
+Run validation after generation:
 
 ```bash
-python3 scripts/validar_skill.py caminho/para/<nome>-voice/SKILL.md
+python3 scripts/validate_skill.py path/to/<name>-voice/SKILL.md
 ```
 
-O script confere frontmatter, tamanho da description, presença das seções obrigatórias e antipadrões comuns. Ele não julga se a voz ficou boa, ele só impede que o arquivo saia quebrado.
+The script checks frontmatter, description length, required sections, placeholders, and common AI writing patterns. It does not judge voice accuracy; it only prevents structurally broken output.
 
-## Teste de aceitação
+## Acceptance test
 
-Uma skill de voz só está pronta quando passa neste teste. Peça um texto novo, sobre assunto que não estava nas amostras, gerado com a skill aplicada. Mostre para a pessoa dona da voz junto com um texto real dela, sem dizer qual é qual. Se ela hesitar para identificar, a skill funciona. Se ela apontar o texto gerado de primeira, volte para a Fase 2 e descubra qual traço ficou de fora.
+A voice skill is ready only after passing this test. Generate a new text on a topic absent from the samples. Show it to the voice owner beside one of their real texts without identifying either. If they hesitate before identifying the generated text, the skill works. If they identify it immediately, return to Phase 2 and determine which trait is missing.
 
-## Casos especiais
+## Special cases
 
-Marca não é pessoa e o protocolo muda em pontos importantes, principalmente porque marca tem múltiplos autores, precisa de regras mais rígidas e costuma ter um tom declarado que não bate com o praticado. As diferenças estão em [references/marca-vs-pessoa.md](references/marca-vs-pessoa.md).
+A brand is not a person. The protocol changes because a brand has multiple authors, needs stricter rules, and often has a declared tone that differs from its practiced tone. See [references/brand-vs-person.md](references/brand-vs-person.md).
 
-Os modos de falha mais comuns, como cair na média genérica de IA, confundir assinatura de estilo com muleta verbal ou copiar tema em vez de voz, estão catalogados em [references/antipadroes.md](references/antipadroes.md). Leia antes de gerar, não depois.
+Common failure modes—including falling back to generic AI writing, mistaking a verbal crutch for a style signature, or copying subject matter instead of voice—are cataloged in [references/anti-patterns.md](references/anti-patterns.md). Read it before generation, not after.
 
-## Uso sem Claude Code
+## Using the process without Claude Code
 
-Quem não usa Claude Code pode colar [prompt-standalone.md](prompt-standalone.md) em qualquer IA e seguir o mesmo processo em três fases dentro do chat.
+Anyone who does not use Claude Code can paste [standalone-prompt.md](standalone-prompt.md) into another AI assistant and run the same three-phase process in the conversation.

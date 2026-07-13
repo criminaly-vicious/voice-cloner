@@ -1,78 +1,78 @@
 ---
-name: NOME-voice
-description: Use esta skill sempre que a IA precisar produzir texto que NOME usará como se tivesse escrito. Descreva aqui os gatilhos concretos, ou seja, os tipos de texto, os canais e os destinatários onde ela se aplica. Resuma em uma frase a essência do estilo. Máximo de 1024 caracteres, e a description é o que faz a skill ser encontrada, então ela precisa conter as palavras que a pessoa realmente usaria ao pedir.
+name: NAME-voice
+description: Use this skill whenever the AI must produce text that NAME will publish as if they wrote it. Describe concrete triggers here: text types, channels, and audiences where the skill applies. Summarize the essence of the style in one sentence. The maximum length is 1,024 characters. The description determines whether the skill is discovered, so include the words a requester would actually use.
 ---
 
-# Voz e estilo de NOME
+# Voice and style of NAME
 
-Parágrafo de abertura com três ou quatro frases que resumem a essência da voz. Este parágrafo deve ele mesmo estar escrito na voz analisada, funcionando como primeira demonstração e não apenas como descrição.
+Write a three- or four-sentence opening that summarizes the essence of the voice. The paragraph must itself use the analyzed voice so it serves as the first demonstration rather than only a description.
 
-## Quando usar
+## When to use
 
-Lista dos contextos onde a skill se aplica, cada item com pelo menos uma frase completa que explique o tipo de texto e o destinatário. Feche a seção dizendo explicitamente onde ela NÃO se aplica, porque skill sem fronteira vaza para lugares onde estraga o resultado.
+List the contexts where the skill applies. Give each item at least one complete sentence explaining the text type and audience. End the section by stating explicitly where the skill does not apply, because an unbounded skill leaks into contexts where it damages the result.
 
-## Regras absolutas
+## Absolute rules
 
-De cinco a dez regras invioláveis, extraídas dos invariantes encontrados na análise. Cada regra precisa ser operacional o bastante para que duas IAs diferentes cheguem a resultados parecidos. Prefira a forma positiva ("abra com o contexto em uma frase") à forma proibitiva vaga ("não seja genérico"), e mantenha as proibições apenas quando forem específicas e verificáveis.
+Provide five to ten inviolable rules extracted from the invariants found during analysis. Each rule must be operational enough that two different AIs reach similar results. Prefer positive instructions such as "open with the context in one sentence" over vague prohibitions such as "do not be generic." Keep prohibitions only when they are specific and verifiable.
 
-## Léxico
+## Vocabulary
 
-O vocabulário característico, com as palavras e expressões que a pessoa realmente usa, a frequência aproximada de cada muleta recorrente, os termos estrangeiros mantidos no original, os termos traduzidos e a lista do que ela evita.
+Document characteristic words and expressions, the approximate frequency of recurring verbal crutches, foreign terms kept in their original language, translated terms, and vocabulary the voice avoids.
 
-## Sintaxe e ritmo
+## Syntax and rhythm
 
-Como as frases são construídas, qual o comprimento típico, como os parágrafos abrem e fecham, qual a pontuação característica e qual a estrutura de argumento do começo ao fim. Inclua as aberturas e os fechamentos recorrentes como fórmulas concretas.
+Explain sentence construction, typical length, paragraph openings and endings, characteristic punctuation, and argument structure from beginning to end. Include recurring openings and closings as concrete formulas.
 
-## Tom por registro
+## Tone by register
 
-De dois a quatro registros nomeados, cada um descrito em duas ou três frases operacionais, com o que muda entre eles. Termine com um parágrafo dizendo o que permanece constante em todos, porque esse é o núcleo da voz.
+Name two to four registers and describe each with two or three operational sentences. Explain what changes between them. End with what remains constant across every register because that is the core of the voice.
 
-## Modo fala e modo escrita
+## Speech mode and writing mode
 
-Instruções separadas para quando o texto simula fala (roteiro, áudio, apresentação, mensagem de voz) e para quando é escrita revisada. Deixe claro qual é o padrão quando o pedido não especificar.
+Give separate instructions for text that simulates speech—scripts, presentations, or voice messages—and for revised writing. State which mode is the default when the request does not specify one.
 
-## Exemplos calibrados
+## Calibrated examples
 
-No mínimo três pares, e de preferência cinco. Cada par trata do mesmo assunto, com a versão errada sendo um texto de IA genérico plausível e a versão certa sendo a voz real. Puxe as situações das amostras coletadas, porque exemplo inventado ensina voz inventada.
+Include at least three pairs and preferably five. Each pair must address the same subject. The incorrect version must be plausible generic AI writing, and the correct version must reflect the real voice. Draw situations from the collected samples because invented examples teach an invented voice.
 
-### Exemplo 1: CONTEXTO
+### Example 1: CONTEXT
 
-Errado, voz genérica de IA:
+Incorrect, generic AI voice:
 
-> Texto genérico aqui.
+> Generic text here.
 
-Certo, voz de NOME:
+Correct, NAME's voice:
 
-> Texto na voz real aqui.
+> Real voice text here.
 
-### Exemplo 2: CONTEXTO
+### Example 2: CONTEXT
 
-Errado, voz genérica de IA:
+Incorrect, generic AI voice:
 
-> Texto genérico aqui.
+> Generic text here.
 
-Certo, voz de NOME:
+Correct, NAME's voice:
 
-> Texto na voz real aqui.
+> Real voice text here.
 
-### Exemplo 3: CONTEXTO
+### Example 3: CONTEXT
 
-Errado, voz genérica de IA:
+Incorrect, generic AI voice:
 
-> Texto genérico aqui.
+> Generic text here.
 
-Certo, voz de NOME:
+Correct, NAME's voice:
 
-> Texto na voz real aqui.
+> Real voice text here.
 
-## Checklist de auto-validação
+## Self-validation checklist
 
-Lista de verificação que a IA precisa rodar mentalmente antes de entregar qualquer texto nesta voz. Cada item deve ser objetivamente verificável no texto produzido, não uma intenção genérica de qualidade.
+Provide checks the AI must run before delivering text in this voice. Every item must be objectively verifiable in the produced text rather than a generic quality intention.
 
-- Item verificável um.
-- Item verificável dois.
-- Item verificável três.
+- First verifiable item.
+- Second verifiable item.
+- Third verifiable item.
 
-## Limitações conhecidas
+## Known limitations
 
-O que a análise não conseguiu determinar e, portanto, onde a skill vai errar com mais probabilidade. Esta seção é obrigatória e existe para impedir que a lacuna vire invenção silenciosa.
+State what the analysis could not determine and where the skill is therefore most likely to fail. This section is mandatory because it prevents missing evidence from becoming a silent invention.
